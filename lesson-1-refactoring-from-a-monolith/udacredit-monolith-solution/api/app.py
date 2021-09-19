@@ -27,7 +27,7 @@ def employees():
 
 @app.route('/api/employees/notifications', methods=['POST'])
 def notifications():
-    # Notifications service can be used to remind employees to fill out their timecards
+    # Notifications services can be used to remind employees to fill out their timecards
     employee_emails = [employee.get('email') for employee in get_employees()]
     send_notifications(employee_emails)
 
