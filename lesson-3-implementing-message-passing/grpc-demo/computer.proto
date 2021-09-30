@@ -1,0 +1,35 @@
+syntax = "proto3";
+{user_id:1, status: 'created', time: 12345, additional_eq: [1, 56, 72] }
+message OrderMessage {
+  string user_id = 1;
+  string status = 2;
+  string time = 3;
+  string item = 4;
+  repeated string equipment = 5 [packed=true];
+}
+
+message OrderMessage {
+ enum Status {
+    Queued = 0;
+    Processing = 1;
+    Completed = 2;
+    Failed = 3;
+  }
+
+  enum Equipment {
+    Keyboard = 0;
+    Mouse = 1;
+    Webcam = 2;
+    Monitor = 3;
+  }
+
+  string id = 1;
+  string created_by = 2;
+  Status status = 3;
+  string created_at = 4;
+  repeated Equipment equipment = 5;
+}
+
+service OrderService {
+  rpc Create(OrderMessage) returns (OrderMessage);
+}

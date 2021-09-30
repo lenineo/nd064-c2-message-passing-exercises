@@ -1,11 +1,15 @@
 from .enums import Status
 
+orders: list = []
+
 
 def create_order(order_data):
     """
     This is a stubbed method of retrieving a resource. It doesn't actually do anything.
     """
     # Do something to create the resource
+    orders.append(order_data)
+
     return order_data
 
 
@@ -13,7 +17,7 @@ def retrieve_orders():
     """
     This is a stubbed method of retrieving multiple resources. It doesn't actually do anything.
     """
-    return [
+    return orders if len(orders) > 0 else [
         {
             "id": "1",
             "status": Status.Queued.value,
