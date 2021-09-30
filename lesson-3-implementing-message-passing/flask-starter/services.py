@@ -9,7 +9,7 @@ def create_order(order_data):
     """
     # Do something to create the resource
     orders.append(order_data)
-
+    # print(orders)
     return order_data
 
 

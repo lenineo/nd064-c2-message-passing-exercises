@@ -13,13 +13,13 @@ def health():
 
 @app.route('/api/orders/computers', methods = ['POST'])
 def create_order_computers():
-    body_value = request.data
-    return str(create_order(body_value))
+    body_value = request.json
+    return jsonify(create_order(body_value))
 
 
 @app.route('/api/orders/computers', methods=['GET'])
 def get_orders_computers():
-    return str(retrieve_orders())
+    return jsonify(retrieve_orders())
 
 
 if __name__ == '__main__':
