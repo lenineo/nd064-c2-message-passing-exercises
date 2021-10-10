@@ -1,0 +1,78 @@
+openapi: 3.0.1
+info:
+  description: Manage orders of computers.
+  version: "1.0.0"
+  title: Computers orders API
+paths:
+  /api/orders/computers/:
+    get:
+      summary: Retrieve all computer orders
+      operationId: getOrders
+      description: By sending get request you can retrieve all computer orders
+      responses:
+        '200':
+          description: Successfully retrieved computer orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
+        '400':
+          description: Orders endpoint was not found
+  /api/orders/computers:
+    post:
+      summary: Creates an order of computer
+      operationId: createOrder
+      description: Creates order of computer
+      responses:
+        '202':
+          description: Item created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+        description: Order to add
+components:
+  schemas:
+    order:
+      type: object
+      required:
+        - id
+        - status
+        - created_at
+        - created_by
+        - equipment
+      properties:
+        id:
+          type: string
+          example: 1
+        status:
+          $ref: '#/components/schemas/Status'
+        created_at:
+          type: string
+          format: date-time
+          example: "2020-10-16T10:31:10.969696"
+        created_by:
+         type: string
+         example: "USER1"
+        equipment:
+         type: array
+         items:
+           $ref: '#/components/schemas/Equipment'
+    Equipment:
+      type: string
+      enum:
+        - KEYBOARD
+        - MOUSE
+        - WEBCAM
+        - MONITOR
+    Status:
+      type: string
+      enum:
+        - QUEUED
+        - PROCESSING
+        - COMPLETED
+        - FAILED
+
