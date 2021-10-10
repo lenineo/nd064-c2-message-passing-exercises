@@ -5,6 +5,7 @@ import grpc
 import order_pb2
 import order_pb2_grpc
 
+orders = []
 
 class OrderServicer(order_pb2_grpc.OrderServiceServicer):
     def Create(self, request, context):
@@ -17,9 +18,35 @@ class OrderServicer(order_pb2_grpc.OrderServiceServicer):
             "equipment": ["MOUSE"]
         }
 
+        orders.append(request_value)
         print(request_value)
 
         return order_pb2.OrderMessage(**request_value)
+
+    # def Get(self, request, context):
+    #     result = order_pb2.OrderMessageList()
+    #     result.orders.extend(orders)
+    #     return result
+    def Get(self, request, context):
+        first_order = order_pb2.OrderMessage(
+            id="2222",
+            created_by="USER123",
+            status=order_pb2.OrderMessage.Status.QUEUED,
+            created_at='2020-03-12',
+            equipment=[order_pb2.OrderMessage.Equipment.KEYBOARD]
+        )
+
+        second_order = order_pb2.OrderMessage(
+            id="3333",
+            created_by="USER123",
+            status=order_pb2.OrderMessage.Status.QUEUED,
+            created_at='2020-03-11',
+            equipment=[order_pb2.OrderMessage.Equipment.MOUSE]
+        )
+
+        result = order_pb2.OrderMessageList()
+        result.orders.extend([first_order, second_order])
+        return result
 
 
 # Initialize gRPC server
